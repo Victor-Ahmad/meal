@@ -13,8 +13,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> @yield('title', 'Admin') | {{ config('app.name') }}</title>
-
+    {{-- <title> @yield('title', 'Admin') | {{ config('app.name') }}</title> --}}
+    <title> Happy Meal</title>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -69,7 +69,8 @@
                             alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="{{ route('admin.dashboard') }}" class="d-block">{{ config('app.name') }}</a>
+                        {{-- <a href="{{ route('admin.dashboard') }}" class="d-block">{{ config('app.name') }}</a> --}}
+                        <a href="{{ route('admin.dashboard') }}" class="d-block">Happy Meal</a>
                     </div>
                 </div>
                 <!-- Sidebar Menu -->

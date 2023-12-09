@@ -35,6 +35,8 @@
             <a href="{{ route('admin.product.index') }}" class="small-box-footer">View <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
+ {{--
+   
     <div class="col-lg-3 col-6">
         <div class="small-box bg-secondary">
             <div class="inner">
@@ -46,5 +48,5 @@
             </div>
             <a href="{{ route('admin.collection.index') }}" class="small-box-footer">View <i class="fas fa-arrow-circle-right"></i></a>
         </div>
-    </div>
+    </div> --}}
 </div>
