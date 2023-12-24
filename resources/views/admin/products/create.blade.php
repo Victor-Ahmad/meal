@@ -27,7 +27,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="collection">Collection</label>
                                         <select name="collection" id="collection" class="form-control" required>
@@ -41,7 +41,7 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="category" class="form-label">Category</label>

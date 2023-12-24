@@ -5,7 +5,7 @@
     <div class="login-box">
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="/" class="h1"><b>Admin</b>LTE</a>
+                <a href="/" class="h1"> <img src="{{ asset('images/logo.jpg') }}" alt="Happy Meal Logo" class="custom_logo"></a>
             </div>
             <div class="card-body">
                 <x-auth-session-status class="mb-4" :status="session('status')" />

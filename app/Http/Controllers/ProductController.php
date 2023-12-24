@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\Collection;
+
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\SubCateory;
@@ -20,8 +20,8 @@ class ProductController extends Controller
         $category = Category::get();
         view()->share('category', $category);
 
-        $collection = Collection::get();
-        view()->share('collection', $collection);
+        // $collection = Collection::get();
+        // view()->share('collection', $collection);
 
         $data = Product::orderBy('id', 'DESC')->paginate(5);
         view()->share('data', $data);
@@ -50,7 +50,6 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|max:255',
-            'collection' => 'required',
             'category' => 'required',
             'subcategory' => 'required',
             'image' => 'required',
@@ -66,7 +65,6 @@ class ProductController extends Controller
 
         $product = new Product();
         $product->name = $request->name;
-        $product->collection_id = $request->collection;
         $product->category_id = $request->category;
         $product->sub_category_id = $request->subcategory;
         $product->slug = $uniqueSlug;
@@ -125,7 +123,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|max:255',
-            'collection' => 'required',
+            
             'category' => 'required',
             'subcategory' => 'required',
         ]);
@@ -138,7 +136,7 @@ class ProductController extends Controller
         }
         $product = Product::find($request->id);
         $product->name = $request->name;
-        $product->collection_id = $request->collection;
+   
         $product->category_id = $request->category;
         $product->sub_category_id = $request->subcategory;
         $product->slug = $uniqueSlug;

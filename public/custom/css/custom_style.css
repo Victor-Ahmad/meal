@@ -1,0 +1,111 @@
+.custom_content_wrapper {
+    background-color: #ffffff !important;
+    /* background-color: #0a6936ab !important; */
+    /* background-color: #063F20 !important; */
+}
+
+/* 4974a5 */
+.custom_small_box1 {
+    background-color: #0a6936 !important;
+}
+
+.custom_small_box2 {
+    background-color: #ad3324 !important;
+}
+
+
+
+.custom_main_sidebar {
+    background-color: #0a6936 !important;
+
+}
+
+.custom_user_panel {
+    border-bottom: 1px solid #ad3324 !important;
+}
+
+a.nav-link.active {
+    background-color: #ad3324 !important;
+}
+
+.navbar-dark {
+    background-color: #ad3324 !important;
+    border-color: #0a6936 !important;
+}
+
+/* .btn-primary {
+    color: #fff;
+    background-color: #0a6936 !important;
+    border-color: #0a6936 !important;
+    box-shadow: none;
+} */
+.custom_btn {
+    color: #ad3324 !important;
+    background-color: #fff !important;
+    border-color: #fff !important;
+    box-shadow: none;
+}
+
+
+.custom_content_header {
+    color: #0a6936 !important;
+}
+
+
+.breadcrumb-item.active {
+    color: #ad3324 !important;
+}
+
+.breadcrumb-item a {
+    color: #0a6936 !important;
+}
+
+.card {
+    background-color: #0a6936 !important;
+}
+
+.table thead th {
+    border-bottom-color: #ad3324 !important;
+}
+
+.table td {
+    border: none !important;
+}
+
+.card-header {
+    background-color: transparent;
+    border-bottom: none !important;
+    padding: .75rem 1.25rem;
+    position: relative;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+}
+
+
+.btn-info {
+    color: #0a6936 !important;
+    background-color: #fff !important;
+    border-color: #fff !important;
+    box-shadow: none;
+}
+
+.card-header {
+    background-color: #ad3324 !important;
+}
+
+.btn-primary {
+    color: #fff !important;
+    background-color: #ad3324 !important;
+    border-color: #ad3324 !important;
+    box-shadow: none;
+}
+
+.form-control {
+    background-color: #fff !important;
+    color: #0a6936 !important;
+    -webkit-text-fill-color: #0a6936 !important;
+}
+
+.bg-dark {
+    background-color: #0a6936 !important;
+}

@@ -42,6 +42,9 @@
     <link rel="stylesheet" href="{{ asset('admin/plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('custom/css/custom_style.css') }}">
+
     <!-- toast -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
         integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
@@ -57,13 +60,13 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-{{ Auth::user()->mode }}-primary elevation-4">
+        <aside class="main-sidebar sidebar-{{ Auth::user()->mode }}-primary elevation-4 custom_main_sidebar">
             <!-- Brand Logo -->
 
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex custom_user_panel">
                     <div class="image">
                         <img src="{{ asset('admin/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
                             alt="User Image">
@@ -81,9 +84,9 @@
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper custom_content_wrapper">
             <!-- Content Header (Page header) -->
-            <section class="content-header">
+            <section class="content-header custom_content_header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">

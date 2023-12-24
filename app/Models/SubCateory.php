@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubCateory extends Model
 {
-    use HasFactory;
+    use HasFactory; 
+protected $guarded = ['id'];
 
     protected $table = 'sub_cateories';
 

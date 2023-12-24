@@ -23,14 +23,14 @@
                 autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
-        <div class="mb-3">
+        {{-- <div class="mb-3">
             <x-input-label for="Mode" class="form-label" :value="__('Mode')" />
             <select name="mode" id="Mode" class="form-control">
                 <option {{ Auth::user()->mode == 'dark' ? 'selected' : '' }} value="dark">Dark</option>
                 <option {{ Auth::user()->mode == 'light' ? 'selected' : '' }} value="light">Light</option>
             </select>
             <x-input-error class="mt-2" :messages="$errors->get('mode')" />
-        </div>
+        </div> --}}
         <div class="mb-3">
             <x-input-label for="email" class="form-label" :value="__('Email')" />
             <x-text-input id="email" name="email" type="email" class="form-control" :value="old('email', $user->email)" required

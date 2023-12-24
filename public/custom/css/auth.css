@@ -1,0 +1,18 @@
+.custom_logo {
+    width: 200px;
+    /* Adjust the width as needed */
+    height: auto;
+    /* Automatically adjust the height to maintain aspect ratio */
+    /* You can also add other styling properties as needed */
+}
+
+.btn-primary {
+    color: #fff !important;
+    background-color: #0a6936 !important;
+    border-color: #0a6936 !important;
+    box-shadow: none;
+}
+
+a {
+    color: #0a6936 !important;
+}

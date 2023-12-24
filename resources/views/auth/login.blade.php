@@ -6,7 +6,10 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="/" class="h1"><b>Happy</b>Meal</a>
+                {{-- <a href="/" class="h1"><b>Happy</b>Meal</a> --}}
+                <a href="/" class="h1">
+                    <img src="{{ asset('images/logo.jpg') }}" alt="Happy Meal Logo" class="custom_logo">
+                </a>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Sign in to start your session</p>

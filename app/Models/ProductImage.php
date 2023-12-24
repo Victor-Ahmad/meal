@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductImage extends Model
 {
-    use HasFactory;
+    use HasFactory; 
+protected $guarded = ['id'];
 
     public $timestamps = false;
 
