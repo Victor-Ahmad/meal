@@ -15,6 +15,24 @@
                 </p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('admin.seller.index') }}"
+                class="nav-link {{ Route::is('admin.seller.index') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-user"></i>
+                <p>Sellers
+                    <span class="badge badge-info right">{{ $userCount }}</span>
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('admin.driver.index') }}"
+                class="nav-link {{ Route::is('admin.driver.index') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-user"></i>
+                <p>Drivers
+                    <span class="badge badge-info right">{{ $userCount }}</span>
+                </p>
+            </a>
+        </li>
         {{-- <li class="nav-item">
             <a href="{{ route('admin.role.index') }}" class="nav-link {{ Route::is('admin.role.index') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-user-tag"></i>

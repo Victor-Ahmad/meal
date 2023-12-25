@@ -9,6 +9,8 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+use function Laravel\Prompts\error;
+
 class OrderController extends Controller
 {
     /**
@@ -39,18 +41,21 @@ class OrderController extends Controller
         $request->validate([
             'user' => 'required',
             'orderStatus' => 'required',
-            'products' => 'required',
+            'products' => 'required|array',
+            'amounts' => 'required|array',
         ]);
 
         $order = Order::create([
-            'user' => $request->user,
-            'orderStatus' => $request->orderStatus,
+            'user_id' => $request->user,
+            'order_status_id' => $request->orderStatus,
         ]);
-        OrderItem::create([
-            'order_id' => $order->id,
-            'product_id' => $request->products,
-            'amount' => $request->amount,
-        ]);
+        foreach ($request->products as $key => $product) {
+            OrderItem::create([
+                'order_id' => $order->id,
+                'product_id' => $product,
+                'amount' => $request->amounts[$key],
+            ]);
+        }
         return redirect()->route('admin.orders.index')->with('success', 'Order created successfully.');
     }
 
@@ -81,5 +86,12 @@ class OrderController extends Controller
     {
         Order::where('id', decrypt($id))->delete();
         return redirect()->route('admin.orders.index')->with('error', 'Order deleted successfully.');
+    }
+
+
+    public function show($id)
+    {
+        $order = Order::with(['orderItems.product.subcategory.category'])->where('id', decrypt($id))->first();
+        return view('admin.orders.show', compact('order'));
     }
 }

@@ -29,21 +29,6 @@
                                         </select>
                                     </div>
                                 </div>
-                                {{-- <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="collection">Collection</label>
-                                        <select name="collection" id="collection" class="form-control" required>
-                                            <option value="" selected disabled>Select collection</option>
-                                            @foreach ($collection as $collect)
-                                                <option {{ old($collect->id) == $collect->id ? 'selected' : '' }}
-                                                    value="{{ $collect->id }}">{{ $collect->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('collection')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div> --}}
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="orderStatus" class="form-label">Order Status</label>
@@ -57,30 +42,40 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="products" class="form-label">Products</label>
-                                        <select name="products" id="products" class="form-control">
-                                            <option value="" selected disabled>select the Product</option>
-                                            @foreach ($products as $product)
-                                                <option {{ old($product->id) == $product->id ? 'selected' : '' }}
-                                                    value="{{ $product->id }}">{{ $product->name }}</option>
-                                            @endforeach
-                                        </select>
+                            </div>
+
+                            <div id="product-entries">
+                                <!-- Initial product entry -->
+                                <div class="row product-entry">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="products" class="form-label">Product</label>
+                                            <select name="products[]" class="form-control">
+                                                <option value="" selected disabled>Select the Product</option>
+                                                @foreach ($products as $product)
+                                                    <option {{ old($product->id) == $product->id ? 'selected' : '' }}
+                                                        value="{{ $product->id }}">{{ $product->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="amount" class="form-label">Amount</label>
-                                        <input type="number" name="amount" id="amount" value="{{ old('amount') }}"
-                                            class="form-control" required>
-                                        @error('amount')
-                                            <span>{{ $message }}</span>
-                                        @enderror
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="amount" class="form-label">Amount</label>
+                                            <input type="number" name="amounts[]" class="form-control"
+                                                placeholder="Amount" required>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <button type="button" class="btn btn-success" id="add-product">Add Product</button>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="card-footer">
                             <button type="submit" id="submit" class="btn btn-primary float-right">Save</button>
                         </div>
@@ -89,4 +84,17 @@
             </div>
         </div>
     </div>
+    @section('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add product entry
+            document.getElementById('add-product').addEventListener('click', function() {
+                var productEntry = document.querySelector('.product-entry').cloneNode(true);
+                document.getElementById('product-entries').appendChild(productEntry);
+            });
+        });
+    </script>
+@endsection
 </x-admin>
+
+

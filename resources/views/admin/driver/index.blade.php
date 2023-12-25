@@ -1,12 +1,12 @@
 <x-admin>
     @section('title')
-        {{ 'Orders' }}
+        {{ 'Driver' }}
     @endsection
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Orders Table</h3>
+            <h3 class="card-title">Driver Table</h3>
             <div class="card-tools">
-                <a href="{{ route('admin.orders.create') }}" class="btn btn-sm btn-info">New</a>
+                <a href="{{ route('admin.driver.create') }}" class="btn btn-sm btn-info">New</a>
             </div>
         </div>
         <div class="card-body p-0">
@@ -14,9 +14,9 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>User Name</th>
-                        <th>Order Status</th>
-                        <th>Created at</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Created</th>
                         <th colspan="2">Action</th>
                     </tr>
                 </thead>
@@ -24,16 +24,13 @@
                     @foreach ($data as $cat)
                         <tr>
                             <td>{{ $cat->id }}</td>
-                            <td>{{ $cat->user->name }}</td>
-                            <td>{{ $cat->orderStatus->name }}</td>
+                            <td>{{ $cat->name }}</td>
+                            <td>{{ $cat->phone }}</td>
                             <td>{{ $cat->created_at }}</td>
-                            <td><a href="{{ route('admin.orders.edit', encrypt($cat->id)) }}"
-                                    class="btn btn-sm btn-primary">Edit</a>
-                                    <a href="{{ route('admin.orders.show', encrypt($cat->id)) }}"
-                                        class="btn btn-sm btn-info">View</a>
-                                </td>
+                            <td><a href="{{ route('admin.driver.edit', encrypt($cat->id)) }}"
+                                    class="btn btn-sm btn-primary">Edit</a></td>
                             <td>
-                                <form action="{{ route('admin.orders.destroy', encrypt($cat->id)) }}" method="POST"
+                                <form action="{{ route('admin.driver.destroy', encrypt($cat->id)) }}" method="POST"
                                     onsubmit="return confirm('Are sure want to delete?')">
                                     @method('DELETE')
                                     @csrf

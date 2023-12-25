@@ -14,6 +14,7 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Price</th>
                         <th>Category</th>
                         <th>Sub Category</th>
                         <th colspan="2">Action</th>
@@ -23,6 +24,7 @@
                     @foreach ($data as $product)
                         <tr>
                             <td>{{ $product->name }}</td>
+                            <td>{{ $product->price }}</td>
                             <td>{{ $product->category->name }}</td>
                             <td>{{ $product->subcategory->name }}</td>
                             <td><a href="{{ route('admin.product.edit', encrypt($product->id)) }}"
