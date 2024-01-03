@@ -14,6 +14,8 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Category</th>
+                        <th>Number of Products</th>
                         <th colspan="2">Action</th>
                     </tr>
                 </thead>
@@ -21,6 +23,8 @@
                     @foreach ($data as $cat)
                         <tr>
                             <td>{{ $cat->name }}</td>
+                            <td>{{ $cat->category->name }}</td>
+                            <td>{{ $cat->products->count() }}</td>
                             <td><a href="{{ route('admin.subcategory.edit', encrypt($cat->id)) }}"
                                     class="btn btn-sm btn-primary">Edit</a></td>
                             <td>

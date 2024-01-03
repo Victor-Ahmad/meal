@@ -21,25 +21,28 @@ class Sidebar extends Component
     public function __construct()
     {
         $userCount = User::count();
-        view()->share('userCount',$userCount);
-        
+        view()->share('userCount', $userCount);
+
+        $driversCount = User::where('type', 'driver')->count();
+        view()->share('driversCount', $driversCount);
+
         $RoleCount = Role::count();
-        view()->share('RoleCount',$RoleCount);
-        
+        view()->share('RoleCount', $RoleCount);
+
         $PermissionCount = Permission::count();
-        view()->share('PermissionCount',$PermissionCount);
-        
+        view()->share('PermissionCount', $PermissionCount);
+
         $CategoryCount = Category::count();
-        view()->share('CategoryCount',$CategoryCount);
-        
+        view()->share('CategoryCount', $CategoryCount);
+
         $SubCategoryCount = SubCateory::count();
-        view()->share('SubCategoryCount',$SubCategoryCount);
-        
+        view()->share('SubCategoryCount', $SubCategoryCount);
+
         // $CollectionCount = Collection::count();
         // view()->share('CollectionCount',$CollectionCount);
-        
+
         $ProductCount = Product::count();
-        view()->share('ProductCount',$ProductCount);
+        view()->share('ProductCount', $ProductCount);
     }
 
     /**

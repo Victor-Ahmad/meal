@@ -186,4 +186,7 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+
+    'GOOGLE_MAP_KEY' => 'AIzaSyCPPCVDxuG_OqGWRPGXizqKcpIIFQSZBOk',
+
 ];

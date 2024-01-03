@@ -9,7 +9,15 @@ class DriverController extends Controller
 {
     public function index()
     {
-        $data = User::where('type','driver')->orderBy('id','DESC')->paginate(5);
+        $data = User::where('type', 'driver')->orderBy('id', 'DESC')->paginate(5);
         return view('admin.driver.index', compact('data'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('admin.driver.create');
     }
 }

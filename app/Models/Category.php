@@ -7,10 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    use HasFactory; 
-protected $guarded = ['id'];
+    use HasFactory;
+    protected $guarded = ['id'];
 
     protected $fillable = [
         'name', 'slug'
     ];
+
+
+    public function subCategories()
+    {
+        return $this->hasMany(SubCateory::class, 'category_id');
+    }
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id');
+    }
 }

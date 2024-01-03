@@ -14,6 +14,8 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Number of Sub Categories</th>
+                        <th>Number of Products</th>
                         <th colspan="2">Action</th>
                     </tr>
                 </thead>
@@ -21,10 +23,13 @@
                     @foreach ($data as $cat)
                         <tr>
                             <td>{{ $cat->name }}</td>
+                            <td>{{ $cat->subCategories->count() }}</td>
+                            <td>{{ $cat->products->count() }}</td>
                             <td><a href="{{ route('admin.category.edit', encrypt($cat->id)) }}"
                                     class="btn btn-sm btn-primary">Edit</a></td>
                             <td>
-                                <form action="{{ route('admin.category.destroy', encrypt($cat->id)) }}" method="POST" onsubmit="return confirm('Are sure want to delete?')">
+                                <form action="{{ route('admin.category.destroy', encrypt($cat->id)) }}" method="POST"
+                                    onsubmit="return confirm('Are sure want to delete?')">
                                     @method('DELETE')
                                     @csrf
                                     <button type="submit" class="btn btn-sm btn-danger">Delete</button>
@@ -35,8 +40,8 @@
                 </tbody>
             </table>
         </div>
-        <div class="card-footer clearfix float-right">
-                {!! $data->links() !!}
-        </div>
+        {{-- <div class="card-footer clearfix float-right">
+            {!! $data->links() !!}
+        </div> --}}
     </div>
 </x-admin>

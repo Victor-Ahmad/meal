@@ -14,18 +14,18 @@ class SubCateoryController extends Controller
      */
     public function __construct()
     {
-        $category = Category::orderBy('id','DESC')->get();
-        view()->share('category',$category);
+        $category = Category::orderBy('id', 'DESC')->get();
+        view()->share('category', $category);
     }
-    
+
 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data = SubCateory::orderBy('id','DESC')->paginate('5');
-        return view('admin.subcategory.index',compact('data'));
+        $data = SubCateory::with('category', 'products')->orderBy('id', 'DESC')->paginate('5');
+        return view('admin.subcategory.index', compact('data'));
     }
 
     /**
@@ -42,8 +42,8 @@ class SubCateoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required|max:255',
-            'category'=>'required',
+            'name' => 'required|max:255',
+            'category' => 'required',
         ]);
         $baseSlug = Str::slug($request->name);
         $uniqueSlug = $baseSlug;
@@ -53,11 +53,11 @@ class SubCateoryController extends Controller
             $counter++;
         }
         SubCateory::create([
-            'name'=>$request->name,
-            'slug'=>$uniqueSlug,
-            'category_id'=>$request->category
+            'name' => $request->name,
+            'slug' => $uniqueSlug,
+            'category_id' => $request->category
         ]);
-        return redirect()->route('admin.subcategory.index')->with('success','subcategory created successfully.');
+        return redirect()->route('admin.subcategory.index')->with('success', 'subcategory created successfully.');
     }
 
     /**
@@ -65,8 +65,8 @@ class SubCateoryController extends Controller
      */
     public function edit($subCateory)
     {
-        $data = SubCateory::where('id',decrypt($subCateory))->first();
-        return view('admin.subcategory.edit',compact('data'));
+        $data = SubCateory::where('id', decrypt($subCateory))->first();
+        return view('admin.subcategory.edit', compact('data'));
     }
 
     /**
@@ -75,13 +75,13 @@ class SubCateoryController extends Controller
     public function update(Request $request, SubCateory $subCateory)
     {
         $request->validate([
-            'name'=>'required|max:255',
-            'category'=>'required',
+            'name' => 'required|max:255',
+            'category' => 'required',
         ]);
         $baseSlug = Str::slug($request->name);
         $uniqueSlug = $baseSlug;
         $counter = 1;
-        
+
         while (SubCateory::where('slug', $uniqueSlug)->where('id', '!=', $request->id)->exists()) {
             $uniqueSlug = $baseSlug . '-' . $counter;
             $counter++;
@@ -90,9 +90,9 @@ class SubCateoryController extends Controller
         SubCateory::where('id', $request->id)->update([
             'name' => $request->name,
             'slug' => $uniqueSlug,
-            'category_id'=>$request->category
+            'category_id' => $request->category
         ]);
-        return redirect()->route('admin.subcategory.index')->with('info','SubCateory updated successfully.');   
+        return redirect()->route('admin.subcategory.index')->with('info', 'SubCateory updated successfully.');
     }
 
     /**
@@ -100,7 +100,7 @@ class SubCateoryController extends Controller
      */
     public function destroy($id)
     {
-        SubCateory::where('id',decrypt($id))->delete();
-        return redirect()->route('admin.subcategory.index')->with('error','SubCateory deleted successfully.');   
+        SubCateory::where('id', decrypt($id))->delete();
+        return redirect()->route('admin.subcategory.index')->with('error', 'SubCateory deleted successfully.');
     }
 }

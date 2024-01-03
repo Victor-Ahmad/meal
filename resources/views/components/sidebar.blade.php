@@ -15,21 +15,21 @@
                 </p>
             </a>
         </li>
-        <li class="nav-item">
-            <a href="{{ route('admin.seller.index') }}"
-                class="nav-link {{ Route::is('admin.seller.index') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-user"></i>
-                <p>Sellers
-                    <span class="badge badge-info right">{{ $userCount }}</span>
-                </p>
-            </a>
-        </li>
+
         <li class="nav-item">
             <a href="{{ route('admin.driver.index') }}"
                 class="nav-link {{ Route::is('admin.driver.index') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-user"></i>
                 <p>Drivers
-                    <span class="badge badge-info right">{{ $userCount }}</span>
+                    <span class="badge badge-info right">{{ $driversCount }}</span>
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('admin.address.index') }}"
+                class="nav-link {{ Route::is('admin.address.index') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-user"></i>
+                <p>Addresses
                 </p>
             </a>
         </li>
@@ -61,7 +61,7 @@
         <li class="nav-item">
             <a href="{{ route('admin.subcategory.index') }}"
                 class="nav-link {{ Route::is('admin.subcategory.index') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-list"></i>
+                <i class="nav-icon fas fa-list"></i>    
                 <p>Sub Category
                     <span class="badge badge-secondary right">{{ $SubCategoryCount }}</span>
                 </p>

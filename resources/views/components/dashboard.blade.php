@@ -1,8 +1,12 @@
+
+@props(['sellsChart1'])
+
+
 <div class="row">
     <div class="col-lg-3 col-6">
         <div class="small-box bg-info custom_small_box1">
             <div class="inner">
-                <h3>{{ $user }}</h3>
+                <h3>{{ $users }}</h3>
                 <p>Total Users</p>
             </div>
             <div class="icon">
@@ -15,42 +19,46 @@
     <div class="col-lg-3 col-6">
         <div class="small-box bg-success custom_small_box2">
             <div class="inner">
-                <h3>{{ $category }}</h3>
-                <p>Total Categories</p>
+                <h3>{{ $orders }}</h3>
+                <p>Total Orders</p>
             </div>
             <div class="icon">
-                <i class="fas fa-list-alt"></i>
+                <i class="fas fa-globe"></i>
             </div>
-            <a href="{{ route('admin.category.index') }}" class="small-box-footer">View <i
+            <a href="{{ route('admin.orders.index') }}" class="small-box-footer">View <i
                     class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <div class="col-lg-3 col-6">
         <div class="small-box bg-primary custom_small_box1">
             <div class="inner">
-                <h3>{{ $product }}</h3>
-                <p>Total Products</p>
+                <h3>{{ $newOrders }}</h3>
+                <p>New Orders</p>
             </div>
             <div class="icon">
-                <i class="fas fas fa-th "></i>
+                <i class="fas fas fa-star "></i>
             </div>
-            <a href="{{ route('admin.product.index') }}" class="small-box-footer">View <i
+            <a href="{{ route('admin.orders.index') }}" class="small-box-footer">View <i
                     class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
 
 
-    {{-- <div class="col-lg-3 col-6">
+    <div class="col-lg-3 col-6">
         <div class="small-box bg-secondary custom_small_box2">
             <div class="inner">
-                <h3>{{ $collection }}</h3>
-                <p>Total Collections</p>
+                <h3>{{ $canceledOrders }}</h3>
+                <p>Canceled Orders</p>
             </div>
             <div class="icon">
-                <i class="fas fas fa-file-pdf"></i>
+                <i class="fas fa-ban"></i>
             </div>
-            <a href="{{ route('admin.collection.index') }}" class="small-box-footer">View <i
+            <a href="{{ route('admin.orders.index') }}" class="small-box-footer">View <i
                     class="fas fa-arrow-circle-right"></i></a>
         </div>
-    </div> --}}
+    </div>
 </div>
+
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+

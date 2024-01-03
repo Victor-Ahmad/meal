@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\DriverController;
@@ -10,7 +11,6 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\SellerController;
 use App\Http\Controllers\SubCateoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,13 +20,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('user', UserController::class);
-    Route::resource('seller', SellerController::class);
+    Route::resource('address', AddressController::class);
     Route::resource('driver', DriverController::class);
     Route::resource('role', RoleController::class);
     Route::resource('permission', PermissionController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('orderStatus', OrderStatusController::class);
     Route::resource('orders', OrderController::class);
+    Route::get('/showMap/{id}', [OrderController::class, 'showMap'])->name('showOrderMap');
     Route::resource('subcategory', SubCateoryController::class);
     Route::resource('collection', CollectionController::class);
     Route::resource('product', ProductController::class);

@@ -16,6 +16,7 @@
                         <th>#</th>
                         <th>User Name</th>
                         <th>Order Status</th>
+                        <th>Total Price</th>
                         <th>Created at</th>
                         <th colspan="2">Action</th>
                     </tr>
@@ -26,12 +27,16 @@
                             <td>{{ $cat->id }}</td>
                             <td>{{ $cat->user->name }}</td>
                             <td>{{ $cat->orderStatus->name }}</td>
+                            <td>{{ $cat->orderItems->sum(function ($orderItem) {return $orderItem->product->price;}) }}
+                            </td>
                             <td>{{ $cat->created_at }}</td>
                             <td><a href="{{ route('admin.orders.edit', encrypt($cat->id)) }}"
                                     class="btn btn-sm btn-primary">Edit</a>
-                                    <a href="{{ route('admin.orders.show', encrypt($cat->id)) }}"
-                                        class="btn btn-sm btn-info">View</a>
-                                </td>
+                                <a href="{{ route('admin.orders.show', encrypt($cat->id)) }}"
+                                    class="btn btn-sm btn-info">View</a>
+                                <a href="{{ route('admin.showOrderMap', encrypt($cat->id)) }}"
+                                    class="btn btn-sm btn-success">Map</a>
+                            </td>
                             <td>
                                 <form action="{{ route('admin.orders.destroy', encrypt($cat->id)) }}" method="POST"
                                     onsubmit="return confirm('Are sure want to delete?')">

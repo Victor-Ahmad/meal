@@ -50,6 +50,8 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|max:255',
+            'price' => 'required',
+            'amount' => 'required',
             'category' => 'required',
             'subcategory' => 'required',
             'image' => 'required',
@@ -65,6 +67,8 @@ class ProductController extends Controller
 
         $product = new Product();
         $product->name = $request->name;
+        $product->price = $request->price;
+        $product->amount = $request->amount;
         $product->category_id = $request->category;
         $product->sub_category_id = $request->subcategory;
         $product->slug = $uniqueSlug;
@@ -123,7 +127,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|max:255',
-            
+
             'category' => 'required',
             'subcategory' => 'required',
         ]);
@@ -136,7 +140,7 @@ class ProductController extends Controller
         }
         $product = Product::find($request->id);
         $product->name = $request->name;
-   
+
         $product->category_id = $request->category;
         $product->sub_category_id = $request->subcategory;
         $product->slug = $uniqueSlug;

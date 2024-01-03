@@ -21,8 +21,28 @@
                                     <div class="form-group">
                                         <label for="name" class="form-label">Name</label>
                                         <input type="text" name="name" id="name" value="{{ old('name') }}"
-                                            class="form-control" required>
+                                            class="form-control" required placeholder="Enter Name...">
                                         @error('name')
+                                            <span>{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="price" class="form-label">Price</label>
+                                        <input type="number" name="price"  min="0" id="price" value="{{ old('price') }}"
+                                            class="form-control" required placeholder="Enter Price...">
+                                        @error('price')
+                                            <span>{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="amount" class="form-label">Amount</label>
+                                        <input type="number" name="amount"  min="0" id="amount" value="{{ old('amount') }}"
+                                            class="form-control" required placeholder="Enter Amount...">
+                                        @error('amount')
                                             <span>{{ $message }}</span>
                                         @enderror
                                     </div>

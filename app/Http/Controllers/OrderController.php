@@ -94,4 +94,9 @@ class OrderController extends Controller
         $order = Order::with(['orderItems.product.subcategory.category'])->where('id', decrypt($id))->first();
         return view('admin.orders.show', compact('order'));
     }
+    public function showMap($id)
+    {
+
+        return view('admin.orders.map');
+    }
 }
