@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Offer extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+    public function images()
+    {
+        return $this->hasMany(OfferImage::class);
+    }
 }

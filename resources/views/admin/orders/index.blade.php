@@ -14,7 +14,10 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>User Name</th>
+                        <th>Customer</th>
+                        <th>Customer Phone</th>
+                        <th>Driver</th>
+                        <th>Driver Phone</th>
                         <th>Order Status</th>
                         <th>Total Price</th>
                         <th>Created at</th>
@@ -26,6 +29,9 @@
                         <tr>
                             <td>{{ $cat->id }}</td>
                             <td>{{ $cat->user->name }}</td>
+                            <td>{{ $cat->user->phone }}</td>
+                            <td>{{ $cat->driver->name }}</td>
+                            <td>{{ $cat->driver->phone }}</td>
                             <td>{{ $cat->orderStatus->name }}</td>
                             <td>{{ $cat->orderItems->sum(function ($orderItem) {return $orderItem->product->price;}) }}
                             </td>

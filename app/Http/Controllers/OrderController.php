@@ -18,7 +18,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $data = Order::with(['user', 'orderStatus'])->orderBy('id', 'DESC')->paginate(5);
+        $data = Order::with(['user', 'orderStatus', 'driver'])->orderBy('id', 'DESC')->paginate(5);
         return view('admin.orders.index', compact('data'));
     }
 
@@ -28,9 +28,10 @@ class OrderController extends Controller
     public function create()
     {
         $orderStatuses = OrderStatus::all();
-        $users = User::all();
+        $users = User::whereNot('type', 'driver')->get();
+        $drivers = User::where('type', 'driver')->get();
         $products = Product::all();
-        return view('admin.orders.create', compact('orderStatuses', 'users', 'products'));
+        return view('admin.orders.create', compact('drivers', 'orderStatuses', 'users', 'products'));
     }
 
     /**
@@ -40,6 +41,7 @@ class OrderController extends Controller
     {
         $request->validate([
             'user' => 'required',
+            'driver' => 'required',
             'orderStatus' => 'required',
             'products' => 'required|array',
             'amounts' => 'required|array',
@@ -47,6 +49,7 @@ class OrderController extends Controller
 
         $order = Order::create([
             'user_id' => $request->user,
+            'driver_id' => $request->driver,
             'order_status_id' => $request->orderStatus,
         ]);
         foreach ($request->products as $key => $product) {

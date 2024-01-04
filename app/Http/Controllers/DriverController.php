@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Hash;
 
 class DriverController extends Controller
 {
@@ -19,5 +21,29 @@ class DriverController extends Controller
     public function create()
     {
         return view('admin.driver.create');
+    }
+
+
+    public function store(Request $request)
+    {
+        try {
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'phone' => ['required'],
+
+
+            ]);
+
+            $user = User::create([
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'type' => "driver",
+
+            ]);
+        } catch (\Exception $e) {
+            \Log::emergency('File:' . $e->getFile() . 'Line:' . $e->getLine() . 'Message:' . $e->getMessage());
+            error_log('File:' . $e->getFile() . 'Line:' . $e->getLine() . 'Message:' . $e->getMessage());
+        }
+        return redirect()->route('admin.driver.index');
     }
 }

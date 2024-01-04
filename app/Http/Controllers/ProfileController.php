@@ -31,7 +31,7 @@ class ProfileController extends Controller
 
             $labels[] = date('j M Y', strtotime($date));
         }
-        
+
 
         $today = Carbon::now('Asia/Riyadh');
         $sevenDaysAgo = Carbon::now('Asia/Riyadh')->subDays(7);
@@ -56,17 +56,17 @@ class ProfileController extends Controller
 
         $sells_chart_1->labels($labels)->options($this->__chartOptions(
             __(
-                "الطلبات",
+                "Orders",
                 ['currency' => 'SAR']
             )
         ));
-        $sells_chart_1->dataset("الطلبات", 'line', $all_sell_values);
+        $sells_chart_1->dataset("Orders", 'line', $all_sell_values);
 
 
 
         $sells_chart_2 = new CommonChart;
-        $sells_chart_2->labels($labels)->options($this->__chartOptions(__('الطلبات', ['currency' => 'SAR'])));
-        $sells_chart_2->dataset('الطلبات', 'bar', $all_sell_values);
+        $sells_chart_2->labels($labels)->options($this->__chartOptions(__('Orders', ['currency' => 'SAR'])));
+        $sells_chart_2->dataset('Orders', 'column', $all_sell_values);
 
 
         return view('dashboard', [
@@ -83,6 +83,21 @@ class ProfileController extends Controller
                 'title' => [
                     'text' => $title,
                 ],
+            ],
+            'plotOptions' => [
+                'column' => [
+                    'pointPadding' => 0.2,
+                    'borderWidth' => 0,
+                    'color' => '#ad3324', // Specify colors if needed
+                ],
+                'line' => [
+                    'pointPadding' => 0.2,
+                    'borderWidth' => 0,
+                    'color' => '#0a6936',
+                  
+                    
+                ],
+
             ],
             'legend' => [
                 'align' => 'right',

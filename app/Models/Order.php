@@ -12,7 +12,11 @@ class Order extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function driver()
+    {
+        return $this->belongsTo(User::class, 'driver_id');
     }
     public function orderStatus()
     {

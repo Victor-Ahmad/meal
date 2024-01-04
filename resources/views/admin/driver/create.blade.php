@@ -27,8 +27,8 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="phoneNumber" class="form-label">Phone Number</label>
-                                        <input type="tel" name="phoneNumber" class="form-control"
+                                        <label for="phone" class="form-label">Phone Number</label>
+                                        <input type="tel" name="phone" class="form-control"
                                         placeholder="Phone number" required>
                                     </div>
                                 </div>

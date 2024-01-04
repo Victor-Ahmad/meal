@@ -19,12 +19,24 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="user" class="form-label">User</label>
+                                        <label for="user" class="form-label">Customer</label>
                                         <select name="user" id="user" class="form-control">
-                                            <option value="" selected disabled>select the User</option>
+                                            <option value="" selected disabled>select the Customer</option>
                                             @foreach ($users as $user)
                                                 <option {{ old($user->id) == $user->id ? 'selected' : '' }}
                                                     value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="driver" class="form-label">Driver</label>
+                                        <select name="driver" id="driver" class="form-control">
+                                            <option value="" selected disabled>select the Driver</option>
+                                            @foreach ($drivers as $driver)
+                                                <option {{ old($driver->id) == $driver->id ? 'selected' : '' }}
+                                                    value="{{ $driver->id }}">{{ $driver->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -85,16 +97,14 @@
         </div>
     </div>
     @section('js')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add product entry
-            document.getElementById('add-product').addEventListener('click', function() {
-                var productEntry = document.querySelector('.product-entry').cloneNode(true);
-                document.getElementById('product-entries').appendChild(productEntry);
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Add product entry
+                document.getElementById('add-product').addEventListener('click', function() {
+                    var productEntry = document.querySelector('.product-entry').cloneNode(true);
+                    document.getElementById('product-entries').appendChild(productEntry);
+                });
             });
-        });
-    </script>
-@endsection
+        </script>
+    @endsection
 </x-admin>
-
-

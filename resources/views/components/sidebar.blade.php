@@ -61,7 +61,7 @@
         <li class="nav-item">
             <a href="{{ route('admin.subcategory.index') }}"
                 class="nav-link {{ Route::is('admin.subcategory.index') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-list"></i>    
+                <i class="nav-icon fas fa-list"></i>
                 <p>Sub Category
                     <span class="badge badge-secondary right">{{ $SubCategoryCount }}</span>
                 </p>
@@ -81,6 +81,15 @@
                 <i class="nav-icon fas fa-th"></i>
                 <p>Products
                     <span class="badge badge-warning right">{{ $ProductCount }}</span>
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('admin.offer.index') }}"
+                class="nav-link {{ Route::is('admin.offer.index') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-th"></i>
+                <p>Offers
+                    <span class="badge badge-warning right">{{ $OffersCount }}</span>
                 </p>
             </a>
         </li>

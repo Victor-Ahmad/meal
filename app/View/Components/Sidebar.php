@@ -3,7 +3,7 @@
 namespace App\View\Components;
 
 use App\Models\Category;
-
+use App\Models\Offer;
 use App\Models\Product;
 use App\Models\SubCateory;
 use App\Models\User;
@@ -43,6 +43,9 @@ class Sidebar extends Component
 
         $ProductCount = Product::count();
         view()->share('ProductCount', $ProductCount);
+
+        $OffersCount = Offer::count();
+        view()->share('OffersCount', $OffersCount);
     }
 
     /**
