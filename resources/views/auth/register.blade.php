@@ -1,11 +1,12 @@
 <x-guest-layout>
-@section('title')
-    {{'Register'}}
-@endsection
+    @section('title')
+        {{ 'Register' }}
+    @endsection
     <div class="register-box">
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="/" class="h1"> <img src="{{ asset('images/logo.jpg') }}" alt="Happy Meal Logo" class="custom_logo"></a>
+                <a href="/" class="h1"> <img src="{{ asset('images/logo.jpg') }}" alt="Happy Meal Logo"
+                        class="custom_logo"></a>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Register a new membership</p>
@@ -23,16 +24,16 @@
                         <x-input-error :messages="$errors->get('name')" class="text-danger" />
                     </div>
                     <div class="input-group mb-3">
-                        <input id="phone" class="form-control" type="tel" name="phone" :value="old('phone')"
-                               required autocomplete="tel" placeholder="Enter phone number">
+                        <input id="phone_number" class="form-control" type="tel" name="phone_number"
+                            :value="old('phone_number')" required autocomplete="tel" placeholder="Enter phone number">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-phone"></span>
                             </div>
                         </div>
-                        <x-input-error :messages="$errors->get('phone')" class="text-danger" />
+                        <x-input-error :messages="$errors->get('phone_number')" class="text-danger" />
                     </div>
-                    <div class="input-group mb-3">
+                    {{-- <div class="input-group mb-3">
                         <input id="email" class="form-control" type="email" name="email" :value="old('email')"
                             required autocomplete="username" placeholder="Enter email address">
                         <div class="input-group-append">
@@ -41,7 +42,7 @@
                             </div>
                         </div>
                         <x-input-error :messages="$errors->get('email')" class="text-danger" />
-                    </div>
+                    </div> --}}
                     <div class="input-group mb-3">
                         <input id="password" class="form-control" type="password" name="password" required
                             autocomplete="new-password" placeholder="Enter password">
@@ -54,7 +55,8 @@
                     </div>
                     <div class="input-group mb-3">
                         <input id="password_confirmation" class="form-control" type="password"
-                            name="password_confirmation" required autocomplete="new-password" placeholder="Re enter password">
+                            name="password_confirmation" required autocomplete="new-password"
+                            placeholder="Re enter password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>

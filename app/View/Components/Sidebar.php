@@ -5,7 +5,7 @@ namespace App\View\Components;
 use App\Models\Category;
 use App\Models\Offer;
 use App\Models\Product;
-use App\Models\SubCateory;
+use App\Models\SubCategory;
 use App\Models\User;
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -35,7 +35,7 @@ class Sidebar extends Component
         $CategoryCount = Category::count();
         view()->share('CategoryCount', $CategoryCount);
 
-        $SubCategoryCount = SubCateory::count();
+        $SubCategoryCount = SubCategory::count();
         view()->share('SubCategoryCount', $SubCategoryCount);
 
         // $CollectionCount = Collection::count();

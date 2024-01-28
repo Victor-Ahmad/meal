@@ -12,16 +12,17 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    protected $guarded = ['id'];
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password', 'phone', 'type',
-    ];
+    // protected $fillable = [
+    //     'name',
+    //     'email',
+    //     'password', 'phone', 'type',
+    // ];
 
     /**
      * The attributes that should be hidden for serialization.

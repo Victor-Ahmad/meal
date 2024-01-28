@@ -21,14 +21,20 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\User::factory()->create([
             'name' => 'Test Admin',
-            'email' => 'testnihir@gmail.com',
-            'password' => bcrypt('password'),
+            'phone_number' => '111111111',
+            'email' => 'admin@gmail.com',
+            'password' => bcrypt('qwe123as'),
         ])->assignRole($admin);
-        
+
         \App\Models\User::factory()->create([
             'name' => 'Test User',
+            'phone_number' => '222222222',
             'email' => 'testuser@gmail.com',
-            'password' => bcrypt('password'),
+            'password' => bcrypt('qwe123as'),
         ])->assignRole($user);
+
+        $this->call(CategoriesTableSeeder::class);
+        $this->call(SubCategoriesTableSeeder::class);
+        $this->call(ProductsTableSeeder::class);
     }
 }

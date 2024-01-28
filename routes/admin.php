@@ -12,7 +12,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\SubCateoryController;
+use App\Http\Controllers\SubCategoryController;
 use App\Models\Offer;
 use Illuminate\Support\Facades\Route;
 
@@ -30,7 +30,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     Route::resource('orderStatus', OrderStatusController::class);
     Route::resource('orders', OrderController::class);
     Route::get('/showMap/{id}', [OrderController::class, 'showMap'])->name('showOrderMap');
-    Route::resource('subcategory', SubCateoryController::class);
+    Route::resource('subcategory', SubCategoryController::class);
     Route::resource('collection', CollectionController::class);
     Route::resource('product', ProductController::class);
     Route::resource('offer', OfferController::class);
