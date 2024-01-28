@@ -1,5 +1,8 @@
 <?php
 return [
+    'product_retrieved_success' => 'تم استرجاع المنتج بنجاح.',
+    'product_not_found' => 'المنتج غير موجود.',
+    'internal_server_error' => 'حدث خطأ في الخادم الداخلي.',
     'otp_sent' => 'تم إرسال رمز المرور لمرة واحدة بنجاح.',
     'otp_invalid' => 'رمز المرور لمرة واحدة غير صالح أو منتهي الصلاحية.',
     'login_success' => 'تم تسجيل الدخول بنجاح.',

@@ -33,8 +33,11 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('qwe123as'),
         ])->assignRole($user);
 
+
         $this->call(CategoriesTableSeeder::class);
         $this->call(SubCategoriesTableSeeder::class);
         $this->call(ProductsTableSeeder::class);
+        $this->call(OffersTableSeeder::class);
+        $this->call(OrderStatusesTableSeeder::class);
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\API\Home;
 
-use App\Http\Controllers\API\Auth\ApiBaseController;
+use App\Http\Controllers\API\ApiBaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\OfferResource;
 use App\Models\Category;
+use App\Models\Offer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,9 +27,20 @@ class HomeController extends ApiBaseController
 
     protected function getHomeData()
     {
-        $categories = Category::with('subCategories')->get();
-        $homeData = CategoryResource::collection($categories);
 
+        // Fetch categories with their subcategories
+        $categories = Category::with('subCategories')->get();
+        $categoriesData = CategoryResource::collection($categories);
+
+        // Fetch all offers with their associated products
+        $offers = Offer::with('product')->get();
+        $offersData = OfferResource::collection($offers);
+
+        // Combine categories and offers data
+        $homeData = [
+            'categories' => $categoriesData,
+            'offers' => $offersData
+        ];
 
         return $homeData;
     }

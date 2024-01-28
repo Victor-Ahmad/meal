@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\Home\HomeController;
+use App\Http\Controllers\API\Product\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,8 @@ Route::middleware('localization')->group(function () {
     Route::post('/request_otp', [AuthController::class, 'requestOTP']);
     Route::post('/verify_otp', [AuthController::class, 'verifyOTP']);
     Route::get('/home', [HomeController::class, 'home']);
+    Route::get('/products/subcategory/{subCategoryId}', [ProductController::class, 'getProductsBySubcategory']);
+    Route::get('/products/{productId}', [ProductController::class, 'getProductById']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {

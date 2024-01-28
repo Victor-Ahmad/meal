@@ -1,5 +1,8 @@
 <?php
 return [
+    'product_retrieved_success' => 'Product retrieved successfully.',
+    'product_not_found' => 'Product not found.',
+    'internal_server_error' => 'Internal server error occurred.',
     'otp_sent' => 'OTP sent successfully.',
     'otp_invalid' => 'Invalid or expired OTP.',
     'login_success' => 'Login successful.',

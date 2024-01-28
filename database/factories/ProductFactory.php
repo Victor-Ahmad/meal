@@ -22,7 +22,7 @@ class ProductFactory extends Factory
         $subCategory = SubCategory::where('category_id', $category->id)->inRandomOrder()->first() ?? SubCategory::factory()->create(['category_id' => $category->id]);
         $name = $this->faker->unique()->word;
         return [
-            'name' =>  $name,
+            'name' => $this->faker->word,
             'slug' => Str::slug($name),
             'price' => $this->faker->randomFloat(2, 1, 1000), // Generate a random price between 1 and 1000
             'amount' => $this->faker->numberBetween(0, 100), // Generate a random amount
