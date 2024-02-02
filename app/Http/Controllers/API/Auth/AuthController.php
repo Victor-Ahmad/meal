@@ -20,14 +20,14 @@ class AuthController extends ApiBaseController
             return $this->errorResponse(__('messages.phone_number_required'), Response::HTTP_BAD_REQUEST);
         }
         $otp = rand(1000, 9999);
-     
+
         $otp = 1111;
         Otp::updateOrCreate(
             ['phone_number' => $request->phone_number],
             ['otp' => $otp, 'expires_at' => Carbon::now()->addMinutes(5)]
         );
         // Send OTP to the phone via SMS
-        return $this->successResponse(null, __('messages.otp_sent'));
+        return $this->successResponse([], __('messages.otp_sent'));
     }
     public function verifyOTP(Request $request)
     {
@@ -64,7 +64,7 @@ class AuthController extends ApiBaseController
             $user = $request->user();
             $user->name = $request->name;
             $user->save();
-            return $this->successResponse(null, __('messages.name_updated'));
+            return $this->successResponse([], __('messages.name_updated'));
         } catch (\Exception $e) {
             return $this->errorResponse(__('messages.name_update_failed'), Response::HTTP_BAD_REQUEST);
         }
