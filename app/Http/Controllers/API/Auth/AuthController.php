@@ -20,9 +20,8 @@ class AuthController extends ApiBaseController
             return $this->errorResponse(__('messages.phone_number_required'), Response::HTTP_BAD_REQUEST);
         }
         $otp = rand(1000, 9999);
-        if ($request->phone_number == "954339974") {
-            $otp = 1111;
-        }
+     
+        $otp = 1111;
         Otp::updateOrCreate(
             ['phone_number' => $request->phone_number],
             ['otp' => $otp, 'expires_at' => Carbon::now()->addMinutes(5)]
