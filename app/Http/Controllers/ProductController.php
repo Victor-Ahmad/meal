@@ -6,9 +6,11 @@ use App\Models\Category;
 
 use App\Models\Product;
 use App\Models\ProductImage;
-use App\Models\SubCateory;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+
+use function Laravel\Prompts\error;
 
 class ProductController extends Controller
 {
@@ -107,7 +109,7 @@ class ProductController extends Controller
     {
         $data = Product::where('id', decrypt($id))->first();
         $productImages = ProductImage::where('product_id', $data->id)->get();
-        $subcategory = SubCateory::where('category_id', $data->category_id)->get();
+        $subcategory = SubCategory::where('category_id', $data->category_id)->get();
         return view('admin.products.edit', compact('productImages', 'data', 'subcategory'));
     }
 
@@ -116,7 +118,7 @@ class ProductController extends Controller
      */
     public function getsubcategory(Request $request)
     {
-        $subcategory = SubCateory::where('category_id', $request->category)->get();
+        $subcategory = SubCategory::where('category_id', $request->category)->get();
         return view('admin.products.subcategory', compact('subcategory'));
     }
 
@@ -148,12 +150,13 @@ class ProductController extends Controller
             // Old Image remove
             $product = Product::where('id', $request->id)->first();
             $image_path = public_path('product-image/' . $product->image);
-            if (file_exists($image_path)) {
+
+            if ($product->image && file_exists($image_path)) {
                 unlink($image_path);
             }
             // Added new image
             $productRealImage = 'product-image/';
-            $realImage = $request->slug . "." . $real_image->getClientOriginalExtension();
+            $realImage = $uniqueSlug . "." . $real_image->getClientOriginalExtension();
             $real_image->move($productRealImage, $realImage);
             $product->image = $realImage;
         }
@@ -161,7 +164,7 @@ class ProductController extends Controller
         $productId = $product->id;
         if ($request->hasFile('image')) {
             foreach ($request->file('image') as $image) {
-                $realImage = $request->slug . "-" . rand(1, 9999) . "-" . date('d-m-Y-h-s') . "." . $image->getClientOriginalExtension();
+                $realImage = $uniqueSlug . "-" . rand(1, 9999) . "-" . date('d-m-Y-h-s') . "." . $image->getClientOriginalExtension();
                 $path = $image->move('product-slider-images', $realImage);
                 ProductImage::create([
                     'product_id' => $productId,
@@ -180,7 +183,7 @@ class ProductController extends Controller
     {
         $product = ProductImage::where('id', $id)->first();
         $image_path = public_path('product-slider-images/' . $product->image);
-        if (file_exists($image_path)) {
+        if ($product->image && file_exists($image_path)) {
             unlink($image_path);
         }
         $product->delete();
@@ -194,10 +197,10 @@ class ProductController extends Controller
         $product = Product::where('id', decrypt($id))->first();
         if ($product) {
             $image_path = public_path('product-image/' . $product->image);
-            if (file_exists($image_path)) {
+            if ($product->image &&  file_exists($image_path)) {
                 unlink($image_path);
-                $product->delete();
             }
+            $product->delete();
         }
         $productCollectionId = decrypt($id);
         $imagesToDelete = ProductImage::where('product_id', $productCollectionId)->get();

@@ -63,16 +63,16 @@ class SubCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($subCateory)
+    public function edit($subCategory)
     {
-        $data = SubCategory::where('id', decrypt($subCateory))->first();
+        $data = SubCategory::where('id', decrypt($subCategory))->first();
         return view('admin.subcategory.edit', compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SubCategory $subCateory)
+    public function update(Request $request, SubCategory $subCategory)
     {
         $request->validate([
             'name' => 'required|max:255',

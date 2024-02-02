@@ -69,11 +69,24 @@ class CategoryController extends Controller
             $uniqueSlug = $baseSlug . '-' . $counter;
             $counter++;
         }
+        $category = Category::find($request->id);
+        if ($real_image = $request->file('image')) {
+            // Old Image remove
+            $category = Category::where('id', $request->id)->first();
+            $image_path = public_path('category-image/' . $category->image);
 
-        Category::where('id', $request->id)->update([
-            'name' => $request->name,
-            'slug' => $uniqueSlug,
-        ]);
+            if ($category->image && file_exists($image_path)) {
+                unlink($image_path);
+            }
+            // Added new image
+            $categoryRealImage = 'category-image/';
+            $realImage = $uniqueSlug . "." . $real_image->getClientOriginalExtension();
+            $real_image->move($categoryRealImage, $realImage);
+            $category->image = 'category-image/' . $realImage;
+        }
+        $category->name = $request->name;
+        $category->slug = $uniqueSlug;
+        $category->save();
         return redirect()->route('admin.category.index')->with('info', 'Category updated successfully.');
     }
 
