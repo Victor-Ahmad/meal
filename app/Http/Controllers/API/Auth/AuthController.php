@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\Auth;
 
+use App\Http\Controllers\API\ApiBaseController;
 use App\Http\Controllers\Controller;
 use App\Models\Otp;
 use App\Models\User;
