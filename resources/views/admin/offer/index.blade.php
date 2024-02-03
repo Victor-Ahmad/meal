@@ -33,7 +33,7 @@
                             <td>
                                 <button class="btn btn-sm btn-secondary view-image" data-toggle="modal"
                                     data-target="#imageModal"
-                                    data-images="{{ $offer->images->pluck('image')->map(function ($img) {return asset('offer-slider-images/' . $img);}) }}">
+                                    data-images="{{ $offer->images->pluck('image')->map(function ($img) {return asset( $img);}) }}">
                                     View Images
                                 </button>
 

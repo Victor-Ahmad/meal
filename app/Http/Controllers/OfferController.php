@@ -55,7 +55,7 @@ class OfferController extends Controller
                     $path = $image->move('offer-slider-images', $realImage);
                     OfferImage::create([
                         'offer_id' => $offer->id,
-                        'image' => $realImage,
+                        'image' => 'offer-slider-images/'.$realImage,
                     ]);
                 }
             }
