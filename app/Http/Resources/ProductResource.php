@@ -18,21 +18,22 @@ class ProductResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
+            'image'=>$this->image??'',
             'price' => $this->price,
             'amount' => $this->amount,
             'category_id' => $this->category_id,
             'sub_category_id' => $this->sub_category_id,
-            'category' => new CategoryResource($this->whenLoaded('category')),
-            'sub_category' => new SubCategoryResource($this->whenLoaded('sub_category')),
-            'offers' => $this->whenLoaded('offers', function () {
-                return $this->offers->map(function ($offer) {
-                    return [
-                        'id' => $offer->id,
-                        'offer_price' => $offer->offer_price,
-                        'amount' => $offer->amount,
-                    ];
-                });
-            }),
+            // 'category' => new CategoryResource($this->whenLoaded('category')),
+            // 'sub_category' => new SubCategoryResource($this->whenLoaded('sub_category')),
+            // 'offers' => $this->whenLoaded('offers', function () {
+            //     return $this->offers->map(function ($offer) {
+            //         return [
+            //             'id' => $offer->id,
+            //             'offer_price' => $offer->offer_price,
+            //             'amount' => $offer->amount,
+            //         ];
+            //     });
+            // }),
         ];
     }
 }

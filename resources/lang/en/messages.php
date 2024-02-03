@@ -2,6 +2,8 @@
 return [
     'product_retrieved_success' => 'Product retrieved successfully.',
     'product_not_found' => 'Product not found.',
+    'category_retrieved_success' => 'Category retrieved successfully.',
+    'category_not_found' => 'Category not found.',
     'internal_server_error' => 'Internal server error occurred.',
     'otp_sent' => 'OTP sent successfully.',
     'otp_invalid' => 'Invalid or expired OTP.',

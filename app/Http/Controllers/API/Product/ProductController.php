@@ -28,7 +28,7 @@ class ProductController extends ApiBaseController
     {
         try {
             $product = Product::with('offers')->findOrFail($productId);
-            return $this->successResponse(new ProductResource($product), __('messages.product_retrieved_success'));
+            return $this->successResponse(ProductResource::collection($product), __('messages.product_retrieved_success'));
         } catch (ModelNotFoundException $e) {
             return $this->errorResponse(__('messages.product_not_found'), Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
