@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('image')->nullable();
+            $table->decimal('price', 10, 2)->default(0.00);
+            $table->Integer('amount')->default(0);
             $table->integer('collection_id');
             $table->integer('category_id');
             $table->integer('sub_category_id');

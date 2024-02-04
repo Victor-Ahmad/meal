@@ -27,7 +27,7 @@
                             <td>
                                 <button class="btn btn-sm btn-secondary view-image" data-toggle="modal"
                                     data-target="#imageModal"
-                                    data-image="{{ asset('company-image/' . $product->image) }}">View Image</button>
+                                    data-image="{{ asset('company-image/' . $comp->image) }}">View Image</button>
                             </td>
                             <td><a href="{{ route('admin.company.edit', encrypt($comp->id)) }}"
                                     class="btn btn-sm btn-primary">Edit</a></td>

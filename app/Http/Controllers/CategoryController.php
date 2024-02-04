@@ -40,10 +40,16 @@ class CategoryController extends Controller
             $uniqueSlug = $baseSlug . '-' . $counter;
             $counter++;
         }
-        Category::create([
-            'name' => $request->name,
-            'slug' => $uniqueSlug,
-        ]);
+        $category = new Category();
+        $category->name = $request->name;
+        $category->slug = $uniqueSlug;
+        if ($primaryImage = $request->file('image')) {
+            $destinationPath = 'category-image/';
+            $profileImage = $uniqueSlug . '.' . $primaryImage->getClientOriginalExtension();
+            $primaryImage->move($destinationPath, $profileImage);
+            $category->image = $profileImage;
+        }
+        $category->save();
         return redirect()->route('admin.category.index')->with('success', 'Category created successfully.');
     }
 

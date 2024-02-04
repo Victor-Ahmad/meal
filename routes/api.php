@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\Auth\AuthController;
+use App\Http\Controllers\API\Address\AddressController;
 use App\Http\Controllers\API\Category\CategoryController;
 use App\Http\Controllers\API\Home\HomeController;
 use App\Http\Controllers\API\Product\ProductController;
@@ -31,6 +32,10 @@ Route::middleware('localization')->group(function () {
 
 Route::middleware('auth:sanctum', 'localization')->group(function () {
     Route::post('/submit_name', [AuthController::class, 'submitName']);
+    Route::get('/addresses', [AddressController::class, 'getAddresses']);
+    Route::post('/addresses.add', [AddressController::class, 'addAddress']);
+    Route::post('/addresses.edit/{id}', [AddressController::class, 'editAddress']);
+    Route::get('/addresses.delete/{id}', [AddressController::class, 'deleteAddress']);
 });
 
 

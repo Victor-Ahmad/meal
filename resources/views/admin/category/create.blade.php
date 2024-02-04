@@ -3,7 +3,7 @@
         {{ 'Create Category' }}
     @endsection
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-primary">
                     <div class="card-header">
@@ -12,17 +12,32 @@
                             <a href="{{ route('admin.category.index') }}" class="btn btn-info btn-sm">Back</a>
                         </div>
                     </div>
-                    <form class="needs-validation" novalidate action="{{ route('admin.category.store') }}" method="POST">
+                    <form class="needs-validation" novalidate action="{{ route('admin.category.store') }}"
+                        method="POST">
                         @csrf
                         <div class="card-body">
-                            <div class="form-group">
-                                <label for="name">Category Name</label>
-                                <input type="text" class="form-control" id="name" name="name"
-                                    placeholder="Enter category name" required value="{{ old('name') }}">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="name">Category Name</label>
+                                        <input type="text" class="form-control" id="name" name="name"
+                                            placeholder="Enter category name" required value="{{ old('name') }}">
+                                    </div>
+                                    @error('name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="image" class="form-label">Image</label>
+                                        <input type="file" name="image" id="image" class="form-control"
+                                            required>
+                                        @error('image')
+                                            <span>{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
-                            @error('name')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary float-right">Save</button>

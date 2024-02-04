@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('driver_id');
             $table->unsignedBigInteger('order_status_id')->nullable();
+            $table->string('note')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('driver_id')->references('id')->on('users');
             $table->foreign('order_status_id')->references('id')->on('order_statuses')->onDelete('set null');
