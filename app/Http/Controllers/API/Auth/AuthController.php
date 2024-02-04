@@ -4,11 +4,13 @@ namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\API\ApiBaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\Otp;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends ApiBaseController
 {
@@ -67,6 +69,18 @@ class AuthController extends ApiBaseController
             $user->name = $request->name;
             $user->save();
             return $this->successResponse([], __('messages.name_updated'));
+        } catch (\Exception $e) {
+            return $this->errorResponse(__('messages.name_update_failed'), Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function userInfo()
+    {
+        try {
+            if (Auth::check()) {
+                $user = User::where('id', Auth::id())->get();
+                return $this->successResponse(UserResource::collection($user), '');
+            }
         } catch (\Exception $e) {
             return $this->errorResponse(__('messages.name_update_failed'), Response::HTTP_BAD_REQUEST);
         }

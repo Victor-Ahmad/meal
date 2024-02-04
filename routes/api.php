@@ -32,6 +32,7 @@ Route::middleware('localization')->group(function () {
 
 Route::middleware('auth:sanctum', 'localization')->group(function () {
     Route::post('/submit_name', [AuthController::class, 'submitName']);
+    Route::get('/user_info', [AuthController::class, 'userInfo']);
     Route::get('/addresses', [AddressController::class, 'getAddresses']);
     Route::post('/addresses.add', [AddressController::class, 'addAddress']);
     Route::post('/addresses.edit/{id}', [AddressController::class, 'editAddress']);

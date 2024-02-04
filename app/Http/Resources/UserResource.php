@@ -2,10 +2,11 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Address;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AddressResource extends JsonResource
+class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,11 +15,13 @@ class AddressResource extends JsonResource
      */
     public function toArray(Request $request)
     {
+        $addresses = Address::where('user_id', $this->id)->get();
         return [
             'id' => $this->id,
             'name' => $this->name ?? '',
-            'latitude' => $this->latitude ?? '',
-            'longitude' => $this->longitude ?? '',
+            'phone' => $this->phone_number ?? '',
+            'email' => $this->email ?? '',
+            'address' => AddressResource::collection($addresses),
         ];
     }
 }
