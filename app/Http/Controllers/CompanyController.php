@@ -25,6 +25,7 @@ class CompanyController extends Controller
     {
         $request->validate([
             'name' => 'required|max:255',
+            'image' => 'required',
         ]);
         $baseSlug = Str::slug($request->name);
         $uniqueSlug = $baseSlug;
@@ -33,10 +34,17 @@ class CompanyController extends Controller
             $uniqueSlug = $baseSlug . '-' . $counter;
             $counter++;
         }
-        Company::create([
-            'name' => $request->name,
-            'slug' => $uniqueSlug,
-        ]);
+        $company = new Company();
+        $company->name = $request->name;
+        $company->slug = $uniqueSlug;
+
+        if ($primaryImage = $request->file('image')) {
+            $destinationPath = 'company-image/';
+            $profileImage = $uniqueSlug . '.' . $primaryImage->getClientOriginalExtension();
+            $primaryImage->move($destinationPath, $profileImage);
+            $company->image = $profileImage;
+        }
+        $company->sabe();
         return redirect()->route('admin.company.index')->with('success', 'Company created successfully.');
     }
     public function edit($company)
@@ -61,10 +69,24 @@ class CompanyController extends Controller
             $uniqueSlug = $baseSlug . '-' . $counter;
             $counter++;
         }
-        $category = Company::find($request->id);
-        $category->name = $request->name;
-        $category->slug = $uniqueSlug;
-        $category->save();
+        $company = Company::find($request->id);
+        $company->name = $request->name;
+        $company->slug = $uniqueSlug;
+        if ($real_image = $request->file('image')) {
+            // Old Image remove
+            $company = Company::where('id', $request->id)->first();
+            $image_path = public_path('company-image/' . $company->image);
+
+            if ($company->image && file_exists($image_path)) {
+                unlink($image_path);
+            }
+            // Added new image
+            $companyRealImage = 'company-image/';
+            $realImage = $uniqueSlug . "." . $real_image->getClientOriginalExtension();
+            $real_image->move($companyRealImage, $realImage);
+            $company->image = $realImage;
+        }
+        $company->save();
         return redirect()->route('admin.company.index')->with('info', 'Company updated successfully.');
     }
     public function destroy($id)
