@@ -27,11 +27,15 @@ class ProductController extends ApiBaseController
     public function getProductById($productId)
     {
         try {
-            $product = Product::with('offers')->findOrFail($productId);
+            $product = Product::with('offers')->where('id',$productId)->get();
             return $this->successResponse(ProductResource::collection($product), __('messages.product_retrieved_success'));
         } catch (ModelNotFoundException $e) {
+            \Log::emergency('File:' . $e->getFile() . 'Line:' . $e->getLine() . 'Message:' . $e->getMessage());
+            error_log('File:' . $e->getFile() . 'Line:' . $e->getLine() . 'Message:' . $e->getMessage());
             return $this->errorResponse(__('messages.product_not_found'), Response::HTTP_NOT_FOUND);
         } catch (\Exception $e) {
+            \Log::emergency('File:' . $e->getFile() . 'Line:' . $e->getLine() . 'Message:' . $e->getMessage());
+            error_log('File:' . $e->getFile() . 'Line:' . $e->getLine() . 'Message:' . $e->getMessage());
             return $this->errorResponse(__('messages.internal_server_error'), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
