@@ -12,6 +12,7 @@
                     <tr>
                         <th>#</th>
                         <th>Name</th>
+                        <th>Type</th>
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Created</th>
@@ -22,8 +23,9 @@
                         <tr>
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
+                            <td>{{ $user->type }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->phone }}</td>
+                            <td>{{ $user->phone_number }}</td>
                             <td>{{ $user->created_at }}</td>
                         </tr>
                     @endforeach

@@ -14,6 +14,7 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Company</th>
                         <th>Price</th>
                         <th>Amount</th>
                         <th>Category</th>
@@ -26,6 +27,7 @@
                     @foreach ($data as $product)
                         <tr>
                             <td>{{ $product->name }}</td>
+                            <td>{{ $product->company?->name ?? '' }}</td>
                             <td>{{ $product->price }}</td>
                             <td>{{ $product->amount }}</td>
                             <td>{{ $product->category->name }}</td>

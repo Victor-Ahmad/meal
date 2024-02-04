@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\API\Auth\AuthController;
-use App\Http\Controllers\API\Home\ApiCategoryController;
 use App\Http\Controllers\API\Category\CategoryController;
 use App\Http\Controllers\API\Home\HomeController;
 use App\Http\Controllers\API\Product\ProductController;

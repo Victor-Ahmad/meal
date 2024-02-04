@@ -28,7 +28,7 @@ class OrderController extends Controller
     public function create()
     {
         $orderStatuses = OrderStatus::all();
-        $users = User::whereNot('type', 'driver')->get();
+        $users = User::where('type', 'customer')->get();
         $drivers = User::where('type', 'driver')->get();
         $products = Product::all();
         return view('admin.orders.create', compact('drivers', 'orderStatuses', 'users', 'products'));

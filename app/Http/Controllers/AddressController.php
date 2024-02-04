@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -22,7 +23,14 @@ class AddressController extends Controller
      */
     public function create()
     {
-        return view('admin.address.create');
+        $users = User::where('type', 'customer')->get();
+        return view('admin.address.create', compact('users'));
+    }
+
+    public function showMap($id)
+    {
+        $address = Address::with('user')->find(decrypt($id));
+        return view('admin.address.map', compact('address'));
     }
 
     /**
@@ -30,27 +38,40 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|max:255',
-        ]);
-        $baseSlug = Str::slug($request->name);
-        $uniqueSlug = $baseSlug;
-        $counter = 1;
-        while (Address::where('slug', $uniqueSlug)->exists()) {
-            $uniqueSlug = $baseSlug . '-' . $counter;
-            $counter++;
-        }
-        Address::create([
-            'name' => $request->name,
+        try {
+            $request->validate([
+                'name' => 'required|max:255',
+                'user' => 'required',
+                'latitude' => 'required',
+                'longitude' => 'required',
+            ]);
+            $baseSlug = Str::slug($request->name);
+            $uniqueSlug = $baseSlug;
+            $counter = 1;
+            while (Address::where('slug', $uniqueSlug)->exists()) {
+                $uniqueSlug = $baseSlug . '-' . $counter;
+                $counter++;
+            }
+            Address::create([
+                'user_id' => $request->user,
+                'name' => $request->name,
+                'slug' => $uniqueSlug,
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
 
-        ]);
-        return redirect()->route('admin.address.index')->with('success', 'Address created successfully.');
+            ]);
+            return redirect()->route('admin.address.index')->with('success', 'Address created successfully.');
+        } catch (\Exception $e) {
+            \Log::emergency('File:' . $e->getFile() . 'Line:' . $e->getLine() . 'Message:' . $e->getMessage());
+            error_log('File:' . $e->getFile() . 'Line:' . $e->getLine() . 'Message:' . $e->getMessage());
+        }
     }
 
     public function edit($address)
     {
-        $data = Address::where('id', decrypt($address))->first();
-        return view('admin.address.edit', compact('data'));
+        $data = Address::with('user')->where('id', decrypt($address))->first();
+        $users = User::where('type', 'customer')->get();
+        return view('admin.address.edit', compact('data', 'users'));
     }
 
     /**
@@ -60,6 +81,9 @@ class AddressController extends Controller
     {
         $request->validate([
             'name' => 'required|max:255',
+            'user' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
         ]);
         $baseSlug = Str::slug($request->name);
         $uniqueSlug = $baseSlug;
@@ -71,8 +95,11 @@ class AddressController extends Controller
         }
 
         Address::where('id', $request->id)->update([
+            'user_id' => $request->user,
             'name' => $request->name,
             'slug' => $uniqueSlug,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
         ]);
         return redirect()->route('admin.address.index')->with('info', 'Address updated successfully.');
     }

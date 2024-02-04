@@ -29,6 +29,18 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="company" class="form-label">Company</label>
+                                        <select name="company" id="company" class="form-control">
+                                            <option value="" selected disabled>select the Company</option>
+                                            @foreach ($companies as $comp)
+                                                <option {{ $data->company_id == $comp->id ? 'selected' : '' }}
+                                                    value="{{ $comp->id }}">{{ $comp->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                                 {{-- <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="collection">Collection</label>
@@ -156,6 +168,7 @@
                     }
                 });
             });
+            
         </script>
     @endsection
 </x-admin>

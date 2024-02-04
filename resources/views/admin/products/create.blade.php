@@ -30,8 +30,9 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="price" class="form-label">Price</label>
-                                        <input type="number" name="price"  min="0" id="price" value="{{ old('price') }}"
-                                            class="form-control" required placeholder="Enter Price...">
+                                        <input type="number" name="price" min="0" id="price"
+                                            value="{{ old('price') }}" class="form-control" required
+                                            placeholder="Enter Price...">
                                         @error('price')
                                             <span>{{ $message }}</span>
                                         @enderror
@@ -40,8 +41,9 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="amount" class="form-label">Amount</label>
-                                        <input type="number" name="amount"  min="0" id="amount" value="{{ old('amount') }}"
-                                            class="form-control" required placeholder="Enter Amount...">
+                                        <input type="number" name="amount" min="0" id="amount"
+                                            value="{{ old('amount') }}" class="form-control" required
+                                            placeholder="Enter Amount...">
                                         @error('amount')
                                             <span>{{ $message }}</span>
                                         @enderror
@@ -62,6 +64,18 @@
                                         @enderror
                                     </div>
                                 </div> --}}
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="company" class="form-label">Company</label>
+                                        <select name="company" id="company" class="form-control">
+                                            <option value="" selected disabled>select the Company</option>
+                                            @foreach ($companies as $comp)
+                                                <option {{ old($comp->id) == $comp->id ? 'selected' : '' }}
+                                                    value="{{ $comp->id }}">{{ $comp->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="category" class="form-label">Category</label>

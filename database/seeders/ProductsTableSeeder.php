@@ -2,12 +2,14 @@
 
 namespace Database\Seeders;
 
+use App\Models\Company;
 use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Faker\Factory as Faker;
+use Illuminate\Support\Arr;
 
 class ProductsTableSeeder extends Seeder
 {
@@ -45,6 +47,7 @@ class ProductsTableSeeder extends Seeder
             ['name' => 'لحم غنم', 'sub_category' => 'لحوم']
         ];
         $faker = Faker::create();
+        $companyIds = Company::pluck('id')->toArray(); 
         foreach ($products as $productData) {
             $subCategory = SubCategory::where('name', $productData['sub_category'])->first();
 
@@ -55,6 +58,7 @@ class ProductsTableSeeder extends Seeder
                     'amount' => $faker->numberBetween(0, 100),  
                     'sub_category_id' => $subCategory->id,
                     'category_id' => $subCategory->category_id,
+                    'company_id' => Arr::random($companyIds),
                     'slug' => Str::slug($productData['name']),
                 ]);
             }

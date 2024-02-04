@@ -9,4 +9,8 @@ class Company extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

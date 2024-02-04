@@ -48,6 +48,8 @@ class AuthController extends ApiBaseController
         // OTP is valid
         $user = User::firstOrCreate(['phone_number' => $request->phone_number]);
         $token = $user->createToken('authToken')->plainTextToken;
+        $user->type = 'customer';
+        $user->save();
 
         // Optionally, delete the OTP record after successful verification
         $otpRecord->delete();

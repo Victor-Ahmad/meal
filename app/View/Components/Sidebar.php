@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use App\Models\Category;
+use App\Models\Company;
 use App\Models\Offer;
 use App\Models\Product;
 use App\Models\SubCategory;
@@ -31,6 +32,9 @@ class Sidebar extends Component
 
         $PermissionCount = Permission::count();
         view()->share('PermissionCount', $PermissionCount);
+
+        $CompanyCount = Company::count();
+        view()->share('CompanyCount', $CompanyCount);
 
         $CategoryCount = Category::count();
         view()->share('CategoryCount', $CategoryCount);

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-
+use App\Models\Company;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\SubCategory;
@@ -25,8 +25,11 @@ class ProductController extends Controller
         // $collection = Collection::get();
         // view()->share('collection', $collection);
 
-        $data = Product::orderBy('id', 'DESC')->paginate(5);
+        $data = Product::with('company')->orderBy('id', 'DESC')->paginate(5);
         view()->share('data', $data);
+
+        $companies = Company::all();
+        view()->share('companies', $companies);
     }
 
     /**
@@ -50,56 +53,63 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|max:255',
-            'price' => 'required',
-            'amount' => 'required',
-            'category' => 'required',
-            'subcategory' => 'required',
-            'image' => 'required',
-        ]);
+        try {
+            $request->validate([
+                'name' => 'required|max:255',
+                'price' => 'required',
+                'amount' => 'required',
+                'category' => 'required',
+                'subcategory' => 'required',
+                'image' => 'required',
+                'company' => 'required',
+            ]);
 
-        $baseSlug = Str::slug($request->name);
-        $uniqueSlug = $baseSlug;
-        $counter = 1;
-        while (Product::where('slug', $uniqueSlug)->exists()) {
-            $uniqueSlug = $baseSlug . '-' . $counter;
-            $counter++;
-        }
-
-        $product = new Product();
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->amount = $request->amount;
-        $product->category_id = $request->category;
-        $product->sub_category_id = $request->subcategory;
-        $product->slug = $uniqueSlug;
-
-        // Primary product image store
-        if ($primaryImage = $request->file('image')) {
-            $destinationPath = 'product-image/';
-            $profileImage = $uniqueSlug . '.' . $primaryImage->getClientOriginalExtension();
-            $primaryImage->move($destinationPath, $profileImage);
-            $product->image = $profileImage;
-        }
-
-        $product->save();
-
-        // Product slider image or external css
-        $productId = $product->id;
-        if ($request->hasFile('product_images')) {
-            foreach ($request->file('product_images') as $image) {
-                $realImage = $uniqueSlug . "-" . rand(1, 9999) . "-" . date('d-m-Y-h-s') . "." . $image->getClientOriginalExtension();
-                $path = $image->move('product-slider-images', $realImage);
-                ProductImage::create([
-                    'product_id' => $productId,
-                    'image' => $realImage,
-                ]);
+            $baseSlug = Str::slug($request->name);
+            $uniqueSlug = $baseSlug;
+            $counter = 1;
+            while (Product::where('slug', $uniqueSlug)->exists()) {
+                $uniqueSlug = $baseSlug . '-' . $counter;
+                $counter++;
             }
+
+            $product = new Product();
+            $product->name = $request->name;
+            $product->price = $request->price;
+            $product->amount = $request->amount;
+            $product->company_id = $request->company;
+            $product->category_id = $request->category;
+            $product->sub_category_id = $request->subcategory;
+            $product->slug = $uniqueSlug;
+
+            // Primary product image store
+            if ($primaryImage = $request->file('image')) {
+                $destinationPath = 'product-image/';
+                $profileImage = $uniqueSlug . '.' . $primaryImage->getClientOriginalExtension();
+                $primaryImage->move($destinationPath, $profileImage);
+                $product->image = $profileImage;
+            }
+
+            $product->save();
+
+            // Product slider image or external css
+            $productId = $product->id;
+            if ($request->hasFile('product_images')) {
+                foreach ($request->file('product_images') as $image) {
+                    $realImage = $uniqueSlug . "-" . rand(1, 9999) . "-" . date('d-m-Y-h-s') . "." . $image->getClientOriginalExtension();
+                    $path = $image->move('product-slider-images', $realImage);
+                    ProductImage::create([
+                        'product_id' => $productId,
+                        'image' => $realImage,
+                    ]);
+                }
+            }
+
+
+            return redirect()->route('admin.product.index')->with('success', 'Product created successfully.');
+        } catch (\Exception $e) {
+            \Log::emergency('File:' . $e->getFile() . 'Line:' . $e->getLine() . 'Message:' . $e->getMessage());
+            error_log('File:' . $e->getFile() . 'Line:' . $e->getLine() . 'Message:' . $e->getMessage());
         }
-
-
-        return redirect()->route('admin.product.index')->with('success', 'Product created successfully.');
     }
 
     /**
@@ -110,6 +120,7 @@ class ProductController extends Controller
         $data = Product::where('id', decrypt($id))->first();
         $productImages = ProductImage::where('product_id', $data->id)->get();
         $subcategory = SubCategory::where('category_id', $data->category_id)->get();
+
         return view('admin.products.edit', compact('productImages', 'data', 'subcategory'));
     }
 
@@ -127,53 +138,61 @@ class ProductController extends Controller
      */
     public function update(Request $request)
     {
-        $request->validate([
-            'name' => 'required|max:255',
+        try {
 
-            'category' => 'required',
-            'subcategory' => 'required',
-        ]);
-        $baseSlug = Str::slug($request->name);
-        $uniqueSlug = $baseSlug;
-        $counter = 1;
-        while (Product::where('slug', $uniqueSlug)->where('id', '!=', $request->id)->exists()) {
-            $uniqueSlug = $baseSlug . '-' . $counter;
-            $counter++;
-        }
-        $product = Product::find($request->id);
-        $product->name = $request->name;
 
-        $product->category_id = $request->category;
-        $product->sub_category_id = $request->subcategory;
-        $product->slug = $uniqueSlug;
-        if ($real_image = $request->file('image')) {
-            // Old Image remove
-            $product = Product::where('id', $request->id)->first();
-            $image_path = public_path('product-image/' . $product->image);
-
-            if ($product->image && file_exists($image_path)) {
-                unlink($image_path);
+            $request->validate([
+                'name' => 'required|max:255',
+                'category' => 'required',
+                'subcategory' => 'required',
+                'company' => 'required',
+            ]);
+            $baseSlug = Str::slug($request->name);
+            $uniqueSlug = $baseSlug;
+            $counter = 1;
+            while (Product::where('slug', $uniqueSlug)->where('id', '!=', $request->id)->exists()) {
+                $uniqueSlug = $baseSlug . '-' . $counter;
+                $counter++;
             }
-            // Added new image
-            $productRealImage = 'product-image/';
-            $realImage = $uniqueSlug . "." . $real_image->getClientOriginalExtension();
-            $real_image->move($productRealImage, $realImage);
-            $product->image = $realImage;
-        }
-        $product->save();
-        $productId = $product->id;
-        if ($request->hasFile('image')) {
-            foreach ($request->file('image') as $image) {
-                $realImage = $uniqueSlug . "-" . rand(1, 9999) . "-" . date('d-m-Y-h-s') . "." . $image->getClientOriginalExtension();
-                $path = $image->move('product-slider-images', $realImage);
-                ProductImage::create([
-                    'product_id' => $productId,
-                    'image' => $realImage,
-                ]);
-            }
-        }
+            $product = Product::find($request->id);
+            $product->name = $request->name;
 
-        return redirect()->route('admin.product.index')->with('success', 'Product created successfully');
+            $product->category_id = $request->category;
+            $product->sub_category_id = $request->subcategory;
+            $product->slug = $uniqueSlug;
+            $product->company_id = $request->company;
+            if ($real_image = $request->file('image')) {
+                // Old Image remove
+                $product = Product::where('id', $request->id)->first();
+                $image_path = public_path('product-image/' . $product->image);
+
+                if ($product->image && file_exists($image_path)) {
+                    unlink($image_path);
+                }
+                // Added new image
+                $productRealImage = 'product-image/';
+                $realImage = $uniqueSlug . "." . $real_image->getClientOriginalExtension();
+                $real_image->move($productRealImage, $realImage);
+                $product->image = $realImage;
+            }
+            $product->save();
+            $productId = $product->id;
+            if ($request->hasFile('image')) {
+                foreach ($request->file('image') as $image) {
+                    $realImage = $uniqueSlug . "-" . rand(1, 9999) . "-" . date('d-m-Y-h-s') . "." . $image->getClientOriginalExtension();
+                    $path = $image->move('product-slider-images', $realImage);
+                    ProductImage::create([
+                        'product_id' => $productId,
+                        'image' => $realImage,
+                    ]);
+                }
+            }
+
+            return redirect()->route('admin.product.index')->with('success', 'Product created successfully');
+        } catch (\Exception $e) {
+            \Log::emergency('File:' . $e->getFile() . 'Line:' . $e->getLine() . 'Message:' . $e->getMessage());
+            error_log('File:' . $e->getFile() . 'Line:' . $e->getLine() . 'Message:' . $e->getMessage());
+        }
     }
 
     /**

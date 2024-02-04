@@ -50,6 +50,15 @@
             </a>
         </li> --}}
         <li class="nav-item">
+            <a href="{{ route('admin.company.index') }}"
+                class="nav-link {{ Route::is('admin.company.index') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-list-alt"></i>
+                <p>Company
+                    <span class="badge badge-warning right">{{ $CompanyCount }}</span>
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{ route('admin.category.index') }}"
                 class="nav-link {{ Route::is('admin.category.index') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-list-alt"></i>
