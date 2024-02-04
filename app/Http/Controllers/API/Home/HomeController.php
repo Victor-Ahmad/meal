@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use function Laravel\Prompts\error;
 
 class HomeController extends ApiBaseController
 {
@@ -32,9 +33,10 @@ class HomeController extends ApiBaseController
     protected function getHomeData()
     {
         $addresses = [];
-        if (Auth::check()) {
-            $userId = Auth::id();
-            $addresses = AddressResource::collection(User::find(auth()->user()->id)->addresses);
+
+        if (Auth::guard('sanctum')->check()) {
+            $userId = Auth::guard('sanctum')->id();
+            $addresses = AddressResource::collection(User::find($userId)->addresses);
         }
         // Fetch categories with their subcategories
         $categories = Category::with('subCategories')->get();

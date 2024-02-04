@@ -29,7 +29,7 @@ Route::middleware('localization')->group(function () {
     Route::get('/products/{productId}', [ProductController::class, 'getProductById']);
 });
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum', 'localization')->group(function () {
     Route::post('/submit_name', [AuthController::class, 'submitName']);
 });
 
